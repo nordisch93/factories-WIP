@@ -1,6 +1,7 @@
 #ifndef FACTORY_HPP
 #define FACTORY_HPP
 
+#include"sqlitewrapper.hpp"
 #include<list>
 #include<string>
 
@@ -92,12 +93,17 @@ public:
 };
 
 class DatabaseWrapper{
-public:
+private:
+    Sqlitewrapper wrapper_;
+
     int buildDatabase(std::string location);
     int openDatabase(const char* filename);
     int refreshDatabase(std::string location);
     int deleteDatabase();
 
+    int addRecipe();
+
+public:
     Recipe getRecipe(std::string name);
 };
 

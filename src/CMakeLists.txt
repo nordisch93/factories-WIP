@@ -1,4 +1,4 @@
-add_library (factory factory.cpp)
+add_library(factory factory.cpp)
 add_library(sqlitewrapper sqlitewrapper.cpp)
 
 

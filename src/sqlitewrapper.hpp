@@ -1,9 +1,11 @@
+#ifndef SQLITEQRAPPER
+#define SQLITEQRAPPER
+
 #include<iostream>
 #include<string>
 #include<cstring>
 #include"sqlite3.h"
 
-#include"factory.hpp"
 
 class Sqlitewrapper{
 
@@ -74,7 +76,7 @@ public:
      * return:          SQLITE_OK if successful
      *                  errorcode else
      */
-    int addRecipe(Recipe recipe);
+    int addRecipe();
 
     /**
      * Deletes a recipe from the database by using a DELETE statement on the recipe table.
@@ -95,7 +97,7 @@ public:
      * return:          SQLITE_OK if successful
      *                  errorcode else
      */
-    int editRecipe(Recipe recipe, const char* name);
+    int editRecipe();
 
     /**
      * Defragments the database by copying the db to a temporary db ignoring all free spaces and copying it back to the original db overwriting it.
@@ -109,3 +111,4 @@ public:
     int vacuumDb();
 
 };
+#endif

@@ -6,7 +6,7 @@
 #include"sqlite3.h"
 
 #include"factory.hpp"
-#include"sqlitewrapper.hpp"
+//#include"sqlitewrapper.hpp"
 
 int main(int argc, char* argv[]){
 
@@ -30,13 +30,12 @@ int main(int argc, char* argv[]){
 
         std::cout << "Successfully opened database.\n";
 
-        Recipe r = Recipe();
 
         int temp = sqlw.createRecipeTable();
 
         if(temp == SQLITE_OK){
 
-            temp = sqlw.addRecipe(r);
+            temp = sqlw.addRecipe();
             if(temp == SQLITE_OK){
                 //everything fine
             }

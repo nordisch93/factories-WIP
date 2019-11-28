@@ -176,73 +176,73 @@ int Sqlitewrapper::createRecipeTable(){
     * return:          SQLITE_OK if successful
     *                  errorcode else
     */
-int Sqlitewrapper::addRecipe(Recipe recipe){
-    int contact_id = 0;     //the id should be max(contact_id)+1 to make sure it's unique
-    const char* name = recipe.getName().c_str();
-    double energyRequired = recipe.getEnergyRequired();
+int Sqlitewrapper::addRecipe(){
 
-    sqlite3_stmt* insertStmt;
-    if(generic_insert_stmt_ != NULL)
-        insertStmt = generic_insert_stmt_;
-    else{
-        sqlite3_stmt* ppStmt;
-        const char* pzTail;
-        const char *insertStmntText = "INSERT INTO contacts ( name, energyRequired) VALUES (@name, @energyRequired);";
-        int prepareReturnValue = sqlite3_prepare_v2(
-            *database_,
-            insertStmntText,
-            -1,
-            &insertStmt,
-            &pzTail
-        );
-    }
+//     const char* name = recipe.getName().c_str();
+//     double energyRequired = recipe.getEnergyRequired();
+// 
+//     sqlite3_stmt* insertStmt;
+//     if(generic_insert_stmt_ != NULL)
+//         insertStmt = generic_insert_stmt_;
+//     else{
+//         sqlite3_stmt* ppStmt;
+//         const char* pzTail;
+//         const char *insertStmntText = "INSERT INTO contacts ( name, energyRequired) VALUES (@name, @energyRequired);";
+//         int prepareReturnValue = sqlite3_prepare_v2(
+//             *database_,
+//             insertStmntText,
+//             -1,
+//             &insertStmt,
+//             &pzTail
+//         );
+//    }
 
     //bindReturnValue = sqlite3_bind_int(insertStmt, 1, NULL);
 
     //bind name, energyRequired
-    int bindReturnValue = sqlite3_bind_text(insertStmt, 1, name,-1,SQLITE_STATIC);
-    bindReturnValue = sqlite3_bind_double(insertStmt, 2, energyRequired);
-
-    if(bindReturnValue == SQLITE_OK){
-        std::cout << "Successfully prepared insert statement.\n";
-
-        //execute & finalize statement
-        if(sqlite3_step(insertStmt) == SQLITE_DONE){
-            std::cout << "Successfully processed insert statement.\n";
-
-            //finalize statement if wrapper is in a mode that conserves memory
-            if(isSlim_){
-                if(sqlite3_finalize(insertStmt) == SQLITE_OK){
-                    std::cout << "Successfully finalized insert statement.\n";
-                    return SQLITE_OK;
-                }
-                else{
-                    std::cout << "Statement could not be finalized.\n Error code " << sqlite3_extended_errcode(*database_) << ".\n";
-                    return sqlite3_extended_errcode(*database_);
-                }
-            }
-            //reset the statement, but don't finalize
-            else{
-                if(sqlite3_reset(insertStmt) == SQLITE_OK){
-                    std::cout << "Successfully reset insert statement.\n";
-                    return SQLITE_OK;
-                }
-                else{
-                    std::cout << "Statement could not be reset.\n Error code " << sqlite3_extended_errcode(*database_) << ".\n";
-                    return sqlite3_extended_errcode(*database_);
-                }
-
-            }
-        }
-        else{
-            std::cout << "Statement to insert could not be processed.\n Error code " << sqlite3_extended_errcode(*database_) << ".\n";
-            return sqlite3_extended_errcode(*database_);
-        }
-    }
-    else{
-            std::cout << "Statement to insert could not be prepared.\n Error code " << sqlite3_extended_errcode(*database_) << ".\n";
-            return sqlite3_extended_errcode(*database_);
-    }
+//     int bindReturnValue = sqlite3_bind_text(insertStmt, 1, name,-1,SQLITE_STATIC);
+//     bindReturnValue = sqlite3_bind_double(insertStmt, 2, energyRequired);
+// 
+//     if(bindReturnValue == SQLITE_OK){
+//         std::cout << "Successfully prepared insert statement.\n";
+// 
+//         //execute & finalize statement
+//         if(sqlite3_step(insertStmt) == SQLITE_DONE){
+//             std::cout << "Successfully processed insert statement.\n";
+// 
+//             //finalize statement if wrapper is in a mode that conserves memory
+//             if(isSlim_){
+//                 if(sqlite3_finalize(insertStmt) == SQLITE_OK){
+//                     std::cout << "Successfully finalized insert statement.\n";
+//                     return SQLITE_OK;
+//                 }
+//                 else{
+//                     std::cout << "Statement could not be finalized.\n Error code " << sqlite3_extended_errcode(*database_) << ".\n";
+//                     return sqlite3_extended_errcode(*database_);
+//                 }
+//             }
+//             //reset the statement, but don't finalize
+//             else{
+//                 if(sqlite3_reset(insertStmt) == SQLITE_OK){
+//                     std::cout << "Successfully reset insert statement.\n";
+//                     return SQLITE_OK;
+//                 }
+//                 else{
+//                     std::cout << "Statement could not be reset.\n Error code " << sqlite3_extended_errcode(*database_) << ".\n";
+//                     return sqlite3_extended_errcode(*database_);
+//                 }
+// 
+//             }
+//         }
+//         else{
+//             std::cout << "Statement to insert could not be processed.\n Error code " << sqlite3_extended_errcode(*database_) << ".\n";
+//             return sqlite3_extended_errcode(*database_);
+//         }
+//     }
+//     else{
+//             std::cout << "Statement to insert could not be prepared.\n Error code " << sqlite3_extended_errcode(*database_) << ".\n";
+//             return sqlite3_extended_errcode(*database_);
+//     }
 }
 
 
